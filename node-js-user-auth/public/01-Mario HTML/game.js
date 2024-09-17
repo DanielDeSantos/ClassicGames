@@ -65,7 +65,6 @@ function create () {
       const instantiateY = (brick.y / relationBlockWorld) + 8
       destroyBrick(brick)
       this.brownBricks.create(instantiateX, instantiateY, 'brown-brick')
-      console.log()
     }
   })
 
