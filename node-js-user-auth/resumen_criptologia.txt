@@ -1,0 +1,12 @@
+Criptografía: Viéncia de cifrar y descifrar información usando técnicas que hagan posible el intercambio de mensajes de manera que sólo lo puedan leer las personas a las que van dirigidos. Esto mensajes se codifican y/o descodifican usando una clave de cifrado
+
+Criptoanálisis: Estudia los métods que se utilizan para descifrar los textos cifrados y recuperar la información sin necesidad de una clave
+
+Estenografía: Consiste en insertar la información en documentos o imágenes
+
+Criptologia = Criptografía + Criptoanálisis
+
+Criptología != Estenogtaffia
+
+
+Firma digital: Se envía un digest (que es la firma digital que consiste en un texto encriptado con la clave privada de A) y el texto encriptado con la clave pública de B. Una vez que B recibe el texto encriptado, lo desencripta con la clave privada de B y compara el digest que ha recibido con ............

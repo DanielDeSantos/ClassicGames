@@ -1,0 +1,133 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "lvl_1-1.json",
+    "expandedProjectPaths": [
+        "C:/Users/Daniel/Desktop/ClassicGames/node-js-user-auth/public/01-Mario HTML/assets/fonts",
+        ".",
+        "assets",
+        "assets/fonts",
+        "C:/Users/Daniel/Desktop/ClassicGames/node-js-user-auth/public/01-Mario HTML/assets"
+    ],
+    "file.lastUsedOpenFilter": "Todos los archivos (*)",
+    "fileStates": {
+        "": {
+            "scaleInDock": 1,
+            "scaleInEditor": 2
+        },
+        "C:/Users/Daniel/AppData/Local/Temp/7zO076B870E/conjpat.tmx": {
+            "scale": 0.1937109375,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 3200.645291389393,
+                "y": -95.50312563016746
+            }
+        },
+        "C:/Users/Daniel/AppData/Local/Temp/7zO076B870E/conjpat.tmx#conj1": {
+            "scaleInDock": 1
+        },
+        "lvl_1-1.json": {
+            "scale": 1.5,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 1231.6666666666665,
+                "y": 189.33333333333334
+            }
+        },
+        "lvl_1-1.json#pngkey.com-nes-png-757296": {
+            "scaleInDock": 1
+        },
+        "lvl_1-1.json#scenery_tileset": {
+            "scaleInDock": 1,
+            "scaleInEditor": 2
+        },
+        "lvl_1-1.tmj": {
+            "expandedGroupLayers": [
+                2
+            ],
+            "scale": 1.5,
+            "selectedLayer": 8,
+            "viewCenter": {
+                "x": 1804,
+                "y": 98.33333333333334
+            }
+        },
+        "lvl_1-1.tmj#PikPng.com_mario-sprite-png_1607": {
+            "scaleInDock": 1
+        },
+        "lvl_1-1.tmj#PikPng.com_mario-sprite-png_1607322": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "lvl_1-1.tmj#bush1": {
+            "scaleInDock": 1
+        },
+        "lvl_1-1.tmj#bush2": {
+            "scaleInDock": 1
+        },
+        "lvl_1-1.tmj#cloud1": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "lvl_1-1.tmj#cloud2": {
+            "scaleInDock": 1
+        },
+        "lvl_1-1.tmj#fence": {
+            "scaleInDock": 1
+        },
+        "lvl_1-1.tmj#floorbricks": {
+            "scaleInDock": 1
+        },
+        "lvl_1-1.tmj#mountain1": {
+            "scaleInDock": 1
+        },
+        "lvl_1-1.tmj#mountain2": {
+            "scaleInDock": 1
+        },
+        "lvl_1-1.tmj#pngkey.com-nes-png-757296": {
+            "scaleInDock": 1
+        },
+        "lvl_1-1.tmj#scenery_tileset": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "lvl_1-1.tmx": {
+            "scale": 0.3569921875,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1920.2100886311412,
+                "y": 103.64372469635623
+            }
+        }
+    },
+    "last.exportedFilePath": "C:/Users/Daniel/Desktop/ClassicGames/node-js-user-auth/public/01-Mario HTML/assets/maps",
+    "last.imagePath": "C:/Users/Daniel/Desktop/ClassicGames/node-js-user-auth/public/01-Mario HTML/assets/maps",
+    "map.height": 13,
+    "map.lastUsedExportFilter": "JSON map files (*.tmj *.json)",
+    "map.lastUsedFormat": "json",
+    "map.tileHeight": 16,
+    "map.tileWidth": 16,
+    "map.width": 240,
+    "openFiles": [
+        "lvl_1-1.json"
+    ],
+    "project": "mario_bross.tiled-project",
+    "property.type": "bool",
+    "recentFiles": [
+        "lvl_1-1.json",
+        "lvl_1-1.tmj",
+        "C:/Users/Daniel/Downloads/conjpat.tmx",
+        "C:/Users/Daniel/AppData/Local/Temp/7zO076B870E/conjpat.tmx",
+        "lvl_1-1.tmx"
+    ],
+    "resizeMap.removeObjects": false,
+    "tileset.embedInMap": true,
+    "tileset.margin": 0,
+    "tileset.spacing": 0,
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    }
+}

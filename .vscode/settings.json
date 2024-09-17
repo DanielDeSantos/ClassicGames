@@ -1,0 +1,5 @@
+{
+    "eslint.enable": true,
+    "eslint.lintTask.options": ".",
+    "eslint.quiet": true
+}

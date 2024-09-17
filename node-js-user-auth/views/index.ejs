@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClassicGames</title>
+    <style>
+        *{
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        header{
+            width: 100%;
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            position: fixed; /* Fija la posición del encabezado  */
+            top: 0; /* Posiciona el encabezado en la parte superior */
+            left: 0; /* Posiciona el encabezado a la izquierda del todo */
+            z-index: 1000; /* Asegura que el encabezado esté por encima de otros elementos porque es el elemento cuyo valor "z-index" es el mas grande */
+        }
+
+
+        .tabla {
+            margin-top: 80px;
+            display: grid; /* Hace que el contenedor con la etqueta "grid-container" se convierta en una tabla e irá obteniendo más filas a medida de que se necesite por desbordamiento*/
+            grid-template-columns: repeat(auto-fit, minmax(200px,0.5fr)); /* Ajusta el tamaño de las columnas automáticamente haciendo que el tamaño mínimo de su contenido (en este caso, el contenedor con la etiqueta "juego") sea de 200 píxeles (en caso de que la pantalla no soporte más columnas) o, por el contrario, si solo existe una columna, ocupará un máximo de media fracción (media pantalla). Es decir, escala automáticamente el tamaño del contenedor hijo a medida de que se vayan añadiendo más contenedores hijos */ 
+            gap: 30px; /* Espacio entre los elementos de la cuadrícula */
+            padding: 20px;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .juego {
+            position: relative; /* Sirve para que el objeto hijo (en este caso, el contenedor que tiene como clase "titulo-juego") tenga un sistema de coordenadas en base a en qué posición se encuentra respecto a este objeto (en este caso, el contenedor que tiene como clase "juego") */
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .juego img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .titulo-juego {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 5px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            font-size: 14px;
+            text-align: center;
+        }
+    </style>
+    <script>
+        function goForms(){
+            window.location.href = "/forms" // Cambia la vista a "/forms". Como en el script  "index.js" se establece que si el usuario se encuentra en "/forms", renderize el contenido de "forms.ejs"
+        }
+
+        function goProtected(){
+            window.location.href = "/protected" // Cambia la vista a "/protected". Como en el script  "index.js" se establece que si el usuario se encuentra en "/protected", renderize el contenido de "protected.ejs"
+        }
+        
+    </script>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <button onclick="goForms()">Formulario</button> <!-- Al presionar el botón, se ejecutará la función "goForms" -->
+            <% if (typeof username !== 'undefined') { %>
+                <button onclick="goProtected()">Ver </button>
+            <% } %>
+        </nav>
+    </header>
+    <div class="tabla">
+        <div class="juego Mario">
+            <!-- Pongo la imagen y el título del juego dentro de lo que sería el enlace para que de igual adónde se haga click a la hora de acceder a esa web -->
+            <a href="01-Mario HTML/mario.html">
+                <img src="Imagenes/mario_bross.jpg" alt="Mario Bros">
+                <div class="titulo-juego">Mario Bros</div>
+            </a>
+        </div>
+
+        <div class="juego Arkanoid">
+            <a href="02-Arkanoid HTML/arkanoid.html">
+                <img src="Imagenes/arkanoid.webp" alt="Arkanoid">
+                <div class="titulo-juego">Arkanoid</div>
+            </a>
+        </div>
+
+        <div class="juego Tetris">
+            <a href="Arkanoid HTML/tetris.html">
+                <img src="Imagenes/tetris.png" alt="Tetris">
+                <div class="titulo-juego">Tetris</div>
+            </a>
+        </div>
+
+    </div>
+</body>
+</html>

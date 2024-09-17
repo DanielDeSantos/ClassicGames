@@ -1,0 +1,143 @@
+Para crear un proyecto, se suelen seguir los siguientes pasos desde cmd:
+
+1. Crear el directorio del proyecto
+
+2. npm init -Y: Se usa para crear el package.json, que sirve para tener información básica, que es necesaria a la hora de publicar el proyecto:
+
+Este es el contenido del archivo que se crea al usar ese comando:
+{
+  "name": "js-user-auth",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
+
+Para este proyecto, he añadido una línea debajo de "main" para poder importar código desde otros scripts usando 'import':
+{
+  "name": "js-user-auth",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
+
+
+3. npm install [Nombre del recurso] -D: Para instalar los recursos necesarios para desarrollar el proyecto (el fichero "package.json" se va actualizando automáticamente a medida de que se instalan los recursos):
+{
+  "name": "js-user-auth",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "express": "4.19.2",
+    "standard": "17.1.0"
+  },
+  "eslintConfig": {
+    "extends": "standard"
+  }
+}
+
+Para este proyecto, se ha usado los siguientes recursos:
+    - Express: Un framework de desarrollo web para Node.js que proporciona una interfaz sencilla y flexible para construir aplicaciones web y APIs que facilita la gestión de solicitudes HTTP, el enrutamiento de URLs, y el uso de middleware para procesar solicitudes y respuestas en servidores web.
+
+
+    - Standerd: Se usa para que el linter de linting corrija el formato del código basandose en una estructura estandarizada. Para usarlo, se ha de añadir al "package.json" las siguientes líneas:
+    "eslintConfig": {
+    "extends": "standard"
+    }
+
+Para poder iniciar el servidor usando el comando "npm run dev", se ha de añadir la línea '"dev": "node --watch index.js",' en "scripts" al archivo "package.json":
+{
+  "name": "js-user-auth",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "express": "4.19.2",
+    "standard": "17.1.0"
+  },
+  "eslintConfig": {
+    "extends": "standard"
+  }
+}
+
+Para poder trabajar con ficheros ejs, me he tenido que instalar "ejs" ("npm install ejs"):
+{
+  "name": "js-user-auth",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "express": "4.19.2",
+    "standard": "17.1.0"
+  },
+  "eslintConfig": {
+    "extends": "standard"
+  },
+  "dependencies": {
+    "ejs": "^3.1.10"
+  }
+}
+
+
+--------------------------------------------------------------------------------------------------------------------
+
+Framework: Estructura de software que proporciona un conjunto de herramientas, bibliotecas y convenciones predefinidas para el desarrollo de aplicaciones.
+
+Linter: Herramienta que detecta y señala los errores que tiene el código. También puede decir cosas relacionadas con la estética del código (por ejemplo, si hay un espacio en vez de 2).
+
+El más común es ESLint, y lo he configurado para que se me aplique el formato al hacer "ctrl + alt + S".
+
+Para aplicar esta configuración, he ido a la barra de búsqueda de la parte superior central de Visual Studio Code (una vez instalada la extensión "ESLint) y he escrito "> ESLint: Fix auto fixable Problems", he situado el cursor encima y he hecho click en el engranaje.
+
+NOTA: He hecho que la combinación para aplicar el formato sea esa y no "ctrl + S" para que se guarde con el formato ya aplicado porque lo probé y no se me guardaba el fichero, solo se aplicaba ese formato y, si ya estaba aplicado, no hacía nada.
+
+Middleware: Conjunto de componentes o funciones que se sitúan entre el sistema operativo y las aplicaciones, o entre diferentes componentes de una aplicación, para gestionar y facilitar la comunicación y el procesamiento de datos. El middleware actúa como una capa intermedia que proporciona servicios y funcionalidades comunes para los procesos o aplicaciones que se comunican entre sí. LO QUE NO ACABO DE ENTENDER ES PARA QUÉ SIRVE
+Definición Midu:
+Función por la que pasa la petición, modifica la petición o la respuesta y deja que pase a la siguiente función que le pertoque.
+
+Fichero .ejs: Es una plantilla que permite que una página creada con un lenguaje html se pueda ver dentro de un servidor web creado con nodeJS
+
+
+Get: Sirve para recuuperar los datos del servidor para mostrarselos al cliente
+
+Post: Se usa para guardar los datos introducidos por el cliente en el servidor
+
+Sesión: Sirve para saber que el usuario sigue/está loggeado (entre diferentes navegaciones)
+
+JWS (Json Web Token): Forma de comunicación(estandard abierto) entre dos partes sin necesidad de tener un estado. Permite representar la sesión del usuario. En el tokn se puede guardar información que se quiera compartir entre 2 partes de manera segura. También permite decodificar, verificar y asegurar que la persona que envia la información es quien dice ser. Explica las partes en 1:11:00: https://www.youtube.com/watch?v=UqnnhAZxRac (web que usa: jwt.io)
