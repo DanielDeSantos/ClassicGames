@@ -176,10 +176,9 @@
             .then(response => {
                 if (response.ok) {
                     registerSpan.innerText = 'Cuenta creada con éxito'
-                    registerSpan.innerText = 'Session iniciada... Entrando...'
                     registerSpan.style.color = 'green'
                     setTimeout(() => {
-                        window.location.href = '/protected'
+                        registerSpan.innerText = 'Inicia sesión para acceder al contenido protegido'
                     }, 2000)
                 } else {
                     registerSpan.innerText = 'Error al crear la cuenta'

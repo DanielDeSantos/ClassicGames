@@ -71,21 +71,21 @@ app.post('/register', async (request, response) => {
 
 app.post('/save-score', (request, response) => {
   try {
-    const { puntos_obtenidos_mario, juego } = request.body; // Usa request en lugar de req
-    const username = request.session.user.username; // Usa request en lugar de req
-    
+    const { puntos_obtenidos_mario, juego } = request.body // Usa request en lugar de req
+    const username = request.session.user.username // Usa request en lugar de req
+
     if (!username) {
-      return response.status(401).json({ message: 'Usuario no autenticado' }); // Usa response en lugar de res
+      return response.status(401).json({ message: 'Usuario no autenticado' }) // Usa response en lugar de res
     }
 
     // Actualizar el puntaje del usuario
-    UserRepository.update_db(username, puntos_obtenidos_mario, juego); 
+    UserRepository.update_db(username, puntos_obtenidos_mario, juego)
 
-    response.status(200).json({ message: 'Puntaje guardado exitosamente' }); // Usa response en lugar de res
+    response.status(200).json({ message: 'Puntaje guardado exitosamente' }) // Usa response en lugar de res
   } catch (error) {
-    response.status(500).json({ message: 'Error al guardar el puntaje', error }); // Usa response en lugar de res
+    response.status(500).json({ message: 'Error al guardar el puntaje', error }) // Usa response en lugar de res
   }
-});
+})
 
 app.post('/logout', (request, response) => {
   response
