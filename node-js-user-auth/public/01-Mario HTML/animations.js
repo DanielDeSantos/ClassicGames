@@ -97,4 +97,9 @@ export const createAnimations = (game) => {
     frameRate: 12,
     repeat: -1
   })
+
+  game.anims.create({
+    key: 'itemBrick-picked',
+    frames: [{ key: 'item-brick-picked', frame: 0 }]
+  })
 }

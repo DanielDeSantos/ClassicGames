@@ -31,6 +31,12 @@ const INIT_SPRITESHEETS = [
     frameHeight: 16
   },
   {
+    key: 'item-brick-picked',
+    path: 'assets/blocks/overworld/emptyBlock.png',
+    frameWidth: 16,
+    frameHeight: 16
+  },
+  {
     key: 'destroyed-brick',
     path: 'assets/blocks/overworld/brick-debris.png',
     frameWidth: 16,

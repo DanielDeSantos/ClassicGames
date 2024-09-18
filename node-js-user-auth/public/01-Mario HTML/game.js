@@ -5,6 +5,7 @@ import { initImages } from './images.js'
 import { initSpritesheets } from './spritesheets.js'
 
 export const relationBlockWorld = 0.06255848148643206100287640421097
+export let altura = 100
 
 const config = {
   type: Phaser.AUTO,
@@ -60,7 +61,7 @@ function create () {
   brownBrick.setCollisionByProperty({ collider: true, hasItem: false }) // Este collider se ha de poner tanto en la capa de Tiled como en cada "sprite" del "sprite-atlas" (paleta) que aparece en la capa
   this.brownBricks = this.physics.add.staticGroup()
   brownBrick.forEachTile(brick => {
-    if (brick.properties.collider) {
+    if (brick.properties.hasItem === false) {
       const instantiateX = (brick.x / relationBlockWorld) + 9
       const instantiateY = (brick.y / relationBlockWorld) + 8
       destroyBrick(brick)
@@ -76,7 +77,8 @@ function create () {
       const instantiateX = (brick.x / relationBlockWorld) + 9
       const instantiateY = (brick.y / relationBlockWorld) + 8
       destroyBrick(brick)
-      this.itemBricks.create(instantiateX, instantiateY, 'item-brick').anims.play('itemBrick-idle')
+      const newBrick = this.itemBricks.create(instantiateX, instantiateY, 'item-brick').anims.play('itemBrick-idle')
+      newBrick.hasItem = true
     }
   })
 
@@ -151,14 +153,16 @@ function create () {
   this.physics.add.collider(this.enemy, floorbricks)
   this.physics.add.collider(this.mario, pipes)
   this.physics.add.collider(this.enemy, pipes)
-  this.physics.add.collider(this.mario, this.brownBricks, hitBrownBrick, null, this)
   this.physics.add.collider(this.mario, this.itemBricks, hitItemBrick, null, this)
+  this.physics.add.collider(this.mario, this.brownBricks, hitBrownBrick, null, this)
 
   // Cuando el enemigo y Mario colisionen, se llamará a la función "onHitEnemy" (si la función se llama de otra forma funcionará igual)
   this.physics.add.collider(this.mario, this.enemy, onHitEnemy, null, this) // Los dos últimos parámetros sirven para que la función pueda ejecutar el audio, es decir, para que se sepa que la función forma parte del juego
 
   // overlap: Cuando un sprite pasa por encima de otro
   this.physics.add.overlap(this.mario, this.collectibles, collectItem, null, this)
+  this.test1 = this.add.sprite(50, 100, 'mario').setOrigin(0, 1)
+  this.test2 = this.add.sprite(80, 100, 'mario').setOrigin(0, 1).setDisplaySize(16, 80)
 
   // --- límites ---
 
@@ -181,8 +185,21 @@ function create () {
 }
 
 function hitBrownBrick (mario, brick) {
-  if (mario.body.blocked.up) {
-    console.log(brick)
+  if (mario.body.touching.up && mario.isGrown) {
+    brick.destroy()
+  }
+}
+
+function hitItemBrick (mario, brick) {
+  if (mario.body.touching.up && brick.hasItem === true) {
+    const instantiatedCoin = this.physics.add.sprite(brick.x, brick.y, 'coin').setVelocityX(0).setVelocityY(-150)
+    instantiatedCoin.play('coin-idle', true)
+    playAudio('coin-pickup', this, { volume: 0.1 })
+    setTimeout(() => {
+      instantiatedCoin.destroy()
+    }, 500)
+    brick.hasItem = false
+    brick.anims.play('itemBrick-picked', true)
   }
 }
 
@@ -194,20 +211,6 @@ function destroyBrick (brick) {
   brick.collideRight = false
 }
 
-function hitItemBrick (mario, brick) {
-  console.log(brick)
-  if (mario.body.blocked.up) {
-    const instantiatedCoin = this.physics.add.sprite(brick.x, brick.y, 'coin').setVelocityX(0).setVelocityY(-150)
-    instantiatedCoin.play('coin-idle', true)
-    playAudio('coin-pickup', this, { volume: 0.1 })
-    setTimeout(() => {
-      instantiatedCoin.destroy()
-    }, 500)
-
-    brick.destroy()
-    destroyBrick(brick)
-  }
-}
 // --- detectar colisiones ---
 function collectItem (mario, item) {
   // Para esactivar y ocultar el item, y hacer que siga cargada en memoria: item.disableBody(true,true)
@@ -336,6 +339,12 @@ function update () {
   // Con esta línea, indico que tanto mario como el enemigo están en el juego
   // De esta forma, no tengo por qué indicarlo en cada línea con this.[lo que sea]
   const { enemy, mario } = this
+  if (altura > 0) {
+    altura -= 1
+    this.test2.setDisplaySize(16, altura)
+  } else {
+    this.test2.destroy()
+  }
 
   enemyMovement(enemy)
 
