@@ -14,7 +14,9 @@ const MARIO_ANIMATIONS = {
   }
 }
 
-export function checkControls ({ mario, keys }) {
+let isOnPipe = false
+
+export function checkControls ({ mario, keys, pipeCollider }) {
   const isMarioTouchingFloor = mario.body.blocked.down
 
   const isLeftKeyDown = keys.left.isDown
@@ -53,6 +55,24 @@ export function checkControls ({ mario, keys }) {
     }
   } else {
     mario.setVelocityX(0)
+  }
+
+  if (mario.x < 726 && mario.x > 700 && mario.y >= 0 && (isDownKeyDown || isOnPipe)) {
+    isOnPipe = true
+    mario.x = 711
+    pipeCollider.active = false
+    mario.setVelocityY(50)
+
+    setTimeout(() => {
+      mario.x = 3700
+      mario.y = -10
+      mario.setVelocity(0, 0) // Reiniciar la velocidad para evitar conflictos
+      pipeCollider.active = true // Reactivar las colisiones
+      isOnPipe = false
+    }, 1500)
+  } else {
+    pipeCollider.active = true
+    if (isOnPipe) isOnPipe = false
   }
 
   if ((isUpKeyDown && isMarioTouchingFloor) || (isSpaceKeyDown && isMarioTouchingFloor)) {

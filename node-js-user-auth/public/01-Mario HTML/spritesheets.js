@@ -47,6 +47,12 @@ const INIT_SPRITESHEETS = [
     path: 'assets/blocks/overworld/block.png',
     frameWidth: 16,
     frameHeight: 16
+  },
+  {
+    key: 'cavern-brick',
+    path: 'assets/blocks/underground/block.png',
+    frameWidth: 16,
+    frameHeight: 16
   }
 ]
 

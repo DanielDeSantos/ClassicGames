@@ -1,4 +1,4 @@
-import { createAnimations } from './animations.js'
+import { createAnimations, marioGrownAnimation } from './animations.js'
 import { initAudio, playAudio } from './audio.js'
 import { checkControls } from './controls.js'
 import { initImages } from './images.js'
@@ -57,15 +57,30 @@ function create () {
   const decoration = mapa.createLayer('decoration', sceneryTileset, 0, 0)
   console.log(decoration)
 
+  const finalCastle = mapa.createLayer('finalCastle', sceneryTileset, 0, 0)
+  console.log(finalCastle)
+
   const brownBrick = mapa.createLayer('brownBricks', sceneryTileset, 0, 0)
-  brownBrick.setCollisionByProperty({ collider: true, hasItem: false }) // Este collider se ha de poner tanto en la capa de Tiled como en cada "sprite" del "sprite-atlas" (paleta) que aparece en la capa
+  brownBrick.setCollisionByProperty({ collider: true, hasItem: false, cavernBrick: false }) // Este collider se ha de poner tanto en la capa de Tiled como en cada "sprite" del "sprite-atlas" (paleta) que aparece en la capa
   this.brownBricks = this.physics.add.staticGroup()
   brownBrick.forEachTile(brick => {
-    if (brick.properties.hasItem === false) {
+    if (brick.properties.hasItem === false && brick.properties.cavernBrick === true) {
       const instantiateX = (brick.x / relationBlockWorld) + 9
       const instantiateY = (brick.y / relationBlockWorld) + 8
       destroyBrick(brick)
       this.brownBricks.create(instantiateX, instantiateY, 'brown-brick')
+    }
+  })
+
+  const cavernBrick = mapa.createLayer('cavernBricks', sceneryTileset, 0, 0)
+  cavernBrick.setCollisionByProperty({ collider: true, hasItem: false, cavernBrick: true }) // Este collider se ha de poner tanto en la capa de Tiled como en cada "sprite" del "sprite-atlas" (paleta) que aparece en la capa
+  this.cavernBricks = this.physics.add.staticGroup()
+  cavernBrick.forEachTile(brick => {
+    if (brick.properties.hasItem === false && brick.properties.cavernBrick === true) {
+      const instantiateX = (brick.x / relationBlockWorld) + 12
+      const instantiateY = (brick.y / relationBlockWorld) + 8
+      destroyBrick(brick)
+      this.cavernBricks.create(instantiateX, instantiateY, 'cavern-brick')
     }
   })
 
@@ -83,6 +98,7 @@ function create () {
   })
 
   const pipes = mapa.createLayer('pipes', sceneryTileset, 0, 0)
+  pipes.setDepth(2)
   pipes.setCollisionByProperty({ collider: true })
 
   // --- nube ---
@@ -151,10 +167,11 @@ function create () {
   // Para determinar qué objetos deben colisionar
   this.physics.add.collider(this.mario, floorbricks)
   this.physics.add.collider(this.enemy, floorbricks)
-  this.physics.add.collider(this.mario, pipes)
+  this.pipeCollider = this.physics.add.collider(this.mario, pipes)
   this.physics.add.collider(this.enemy, pipes)
   this.physics.add.collider(this.mario, this.itemBricks, hitItemBrick, null, this)
   this.physics.add.collider(this.mario, this.brownBricks, hitBrownBrick, null, this)
+  this.physics.add.collider(this.mario, this.cavernBricks, hitBrownBrick, null, this)
 
   // Cuando el enemigo y Mario colisionen, se llamará a la función "onHitEnemy" (si la función se llama de otra forma funcionará igual)
   this.physics.add.collider(this.mario, this.enemy, onHitEnemy, null, this) // Los dos últimos parámetros sirven para que la función pueda ejecutar el audio, es decir, para que se sepa que la función forma parte del juego
@@ -162,19 +179,20 @@ function create () {
   // overlap: Cuando un sprite pasa por encima de otro
   this.physics.add.overlap(this.mario, this.collectibles, collectItem, null, this)
   this.test1 = this.add.sprite(50, 100, 'mario').setOrigin(0, 1)
-  this.test2 = this.add.sprite(80, 100, 'mario').setOrigin(0, 1).setDisplaySize(16, 80)
+  this.test2 = this.add.sprite(this.test1.x, 0, 'mario').setOrigin(0, 1).setDisplaySize(16, 80)
+  this.test2.y = this.test1.y + 100
 
   // --- límites ---
 
   // Para establecer los límites del juego
   // this.physics.world.setBounds(Límite por la izquierda,
   // Límite inferior, Límite por la derecha, Límite superior)
-  this.physics.world.setBounds(0, 0, 3408, 1000)
+  this.physics.world.setBounds(0, 0, 34080, 1000)
 
   // --- cámara ---
 
   // Para definir los límites de la cámara
-  this.cameras.main.setBounds(0, 0, 3408, config.height)
+  this.cameras.main.setBounds(0, 0, 34080, config.height)
   // Para decir a qué debe seguir la cámara
   this.cameras.main.startFollow(this.mario)
 
@@ -226,19 +244,7 @@ function collectItem (mario, item) {
     this.anims.pauseAll()
 
     playAudio('powerup', this, { volume: 0.1 })
-
-    // Para el bucle, se establece una variable que toma como valor inicial 0.
-    let i = 1
-    // Este es un bucle que se ejecuta durante 100 milisegundos y en cada iteración, cambia la animación de Mario, ya que suma un vaor a la variable establecida anteriormente (let i = 1;) y detecta que si el residuo de la división entre i y 2 es 0, es decir, que i es par, se cambia la animación de Mario a "mario-grown-idle", y si es impar, se cambia la animación de Mario a "mario-idle".
-
-    // Para que Mario se haga grande de una forma correcta, la primera animación en ejecutarse ha de ser "mario-idle". En este caso, lo he provocado haciendo que el valor inicial de i sea 1, pero también se podría hacer que el valor de i se actualice antes que se ejecute la animación dentro del intervalo
-    const interval = setInterval(() => {
-      mario.anims.play(i % 2 === 0
-        ? 'mario-grown-idle'
-        : 'mario-idle'
-      )
-      i++
-    }, 100)
+    const interval = marioGrownAnimation(mario)
 
     mario.isBlocked = true // Para que Mario no pueda moverse
     mario.isGrown = true
@@ -248,7 +254,6 @@ function collectItem (mario, item) {
       mario.setDisplaySize(18, 32)
 
       this.anims.resumeAll()
-
       mario.isBlocked = false
       clearInterval(interval) // Para detener la animación creada a partir de la constante "interval"
       this.physics.world.resume()
@@ -335,6 +340,8 @@ function marioSaltoAlto (mario) {
 }
 
 function update () {
+  this.test2.y -= 2
+
   // "this" hace referencia al juego en sí
   // Con esta línea, indico que tanto mario como el enemigo están en el juego
   // De esta forma, no tengo por qué indicarlo en cada línea con this.[lo que sea]

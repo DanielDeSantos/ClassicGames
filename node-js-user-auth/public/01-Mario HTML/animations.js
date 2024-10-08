@@ -103,3 +103,33 @@ export const createAnimations = (game) => {
     frames: [{ key: 'item-brick-picked', frame: 0 }]
   })
 }
+
+export function marioGrownAnimation (mario) {
+  if (window.navigator.platform.startsWith('Linux')) {
+    // Para el bucle, se establece una variable que toma como valor inicial 0.
+    let i = 0
+    // Este es un bucle que se ejecuta durante 100 milisegundos y en cada iteración, cambia la animación de Mario, ya que suma un vaor a la variable establecida anteriormente (let i = 1;) y detecta que si el residuo de la división entre i y 2 es 0, es decir, que i es par, se cambia la animación de Mario a "mario-grown-idle", y si es impar, se cambia la animación de Mario a "mario-idle".
+    const interval = setInterval(() => {
+      mario.anims.play(i % 2 === 0
+        ? 'mario-grown-idle'
+        : 'mario-idle'
+      )
+      i++
+    }, 100)
+    return interval
+  } else {
+    // Para el bucle, se establece una variable que toma como valor inicial 0.
+    let i = 1
+    // Este es un bucle que se ejecuta durante 100 milisegundos y en cada iteración, cambia la animación de Mario, ya que suma un vaor a la variable establecida anteriormente (let i = 1;) y detecta que si el residuo de la división entre i y 2 es 0, es decir, que i es par, se cambia la animación de Mario a "mario-grown-idle", y si es impar, se cambia la animación de Mario a "mario-idle".
+    const interval = setInterval(() => {
+      // En Windows, Para que Mario se haga grande de una forma correcta, la primera animación en ejecutarse ha de ser "mario-idle". En este caso, lo he provocado haciendo que el valor inicial de i sea 1, pero también se podría hacer que el valor de i se actualice antes que se ejecute la animación dentro del intervalo
+
+      mario.anims.play(i % 2 === 0
+        ? 'mario-grown-idle'
+        : 'mario-idle'
+      )
+      i++
+    }, 100)
+    return interval
+  }
+}
